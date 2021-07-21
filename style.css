@@ -1,0 +1,165 @@
+/* flat UI color <= web site to get colors from */
+
+/* presets */
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    background-color: black;
+}
+
+#record, 
+#capture{
+    height: 3.5rem;
+    width: 4rem;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    /* parent pai joo space hai top pai waha chala jai gai */
+    
+    position: fixed;
+
+    border: 4px solid white;
+    background: black;
+
+
+    z-index: 3;
+}
+
+/* properties of record button */
+#record{
+    top: 34vh;
+    right: 20px;
+}
+
+
+#record div{
+    height: 65%;
+    width: 70%;
+    border: 1px solid;
+    /* horizontally align kar raha hai margin: auto; */
+    margin: auto;
+    border-radius: 50%;
+    background-color: red;
+}
+
+/* properties of record button */
+#capture{
+    top: 45vh;
+    right: 20px;
+}
+
+
+#capture div{
+    height: 65%;
+    width: 70%;
+    border: 1px solid;
+    margin: auto;
+    border-radius: 50%;
+    background-color: white;
+}
+
+#video-container{
+    height: 100vh;
+    width: 100wh;
+    /* digital zoom =>  zoom-in-out feature kaa lia kia hai jaa */
+    overflow: hidden;
+}
+
+/* yaa video tag overflow kara gaa apna parent koo ie, #video-container so we write overflow:hidden; to adjust video tag */
+video{
+    height: 100%;
+    width: 100%;
+}
+
+/* we are going to applying this animation on record btn using JS*/
+.record-animation{
+    animation: zoom-in-out 0.8s linear infinite;
+}
+
+/* we are going to applying this animation on capture btn using JS*/
+.capture-animation{
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+    animation: zoom-in-out 1.3s linear 2;
+}
+
+@keyframes zoom-in-out {
+
+    0%{
+        transform: scale(1);
+    }
+
+    50%{
+        transform: scale(1.3);
+    }
+
+    100%{
+        transform: scale(1);
+    }
+}
+
+
+.filter-container{
+    height: 50vh;
+    width: 5rem;
+    border: 1px solid white;
+    /* matlab body ka respect mai position lai gaa yaa filter-container vala div*/
+    position: fixed;
+    top: 20vh;
+    left: 20px;
+
+    z-index: 3;
+}
+
+.filter{
+    height: calc( 100% / 6 );
+    width: 100%;
+    border: 1.7px solid white;
+    background-image: url("https://c.pxhere.com/images/f2/b7/eca8a1b0f46b7affb1f249377808-1597347.jpg!d");
+
+    /* image origin size mia aa rahi hai usa & cover => div box koo fill kardata hai */
+    background-size: cover;
+}
+
+.filter-div{
+    height: 100vh;
+    width: 100vw;
+    /* background-color: red; */
+    position: fixed;
+    top: 0;
+    /* joo cuurent level hai uspa laga  */
+    z-index: 0;
+}
+
+.zoom-container{
+    height: 20vh;
+    width: 4.2rem;
+    /* border: 1px solid white; */
+    position: fixed; 
+    top: 5vh;
+    right: 20px;
+
+    z-index: 3;
+}
+
+.zoom-container div{
+    height: 50%;
+    width: 100%;
+    /* border: 1px solid white; */
+    /* + & - sign ka color change kia hai */
+    color: white;
+    font-size: 3.8rem;
+    text-align: center;
+    background-color: #57606f;
+    font-weight: bold;
+}
+
+#gallery{
+    position: fixed;
+    z-index: 3;
+    bottom: 100px;
+    right: 20px;
+    height: 3rem;
+}

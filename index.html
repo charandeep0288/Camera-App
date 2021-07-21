@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera App</title>
+
+    <!-- <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body{
+            margin: 0;
+        }
+
+    </style> -->
+    <link rel="stylesheet" href="style.css"></link>
+</head>
+
+<body>
+
+    <!-- <video src="https://www.youtube.com/watch?v=wGdDWbk9OuA" autoplay controls></video> -->
+    <div id="video-container">
+        <video autoplay style="transform: scale(1);"></video>
+    </div>
+
+    <button id="record"><div></div></button>
+    <!-- <button id="stop">Stop</button> -->
+    <button id="capture"><div></div></button>
+
+    <button id="gallery" >Gallery</button>
+
+
+        <!-- <div class="temp" style="
+        height: 100vh;
+        width: 100vw;
+        background-color: red;
+        position: fixed;
+        top: 0;"></div> -->
+        
+        <div class="filter-container">
+
+           <div class="filter" style="background-color: #e5503946;
+           /* 'background-blend-mode: color-burn;' => mix or blend => background color & image with each other */
+           /* background-color: color-burn; yaha pai likha iss inline CSS mai & background-blend-mode: agar 'style.css' mai likha gai tho dhang se work nahi kara gaa 'background-blend-mode'*/
+           background-blend-mode: luminosity;"></div>
+
+           <div class="filter" style="background-color: #1e379942;
+           background-blend-mode: luminosity;"></div>
+
+           <div class="filter" style="background-color: #f6b83b42;
+           background-blend-mode: luminosity;"></div>
+
+           <div class="filter" style="background-color: #07999232;
+           background-blend-mode: luminosity;"></div>
+
+           <div class="filter" style="background-color: #b7e9942a;  
+           background-blend-mode: luminosity;"></div>
+           
+           <div class="filter"></div>
+
+        </div>
+
+
+        <div class="zoom-container">
+            <div class="zoom-in">+</div>
+            <div class="zoom-out">-</div>
+        </div>
+
+
+        <script src="dbScript.js"></script>
+        <script src="script.js"></script>
+</body>
+
+</html>
