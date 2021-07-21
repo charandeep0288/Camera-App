@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body{
+            margin: 0;
+            /* canvas kuch by default kuch spacing lata hia because of window, jiski vaja se scrollbar aa raha hai window pai, iss scrollbar ko hatana ka lia humna => overflow: hidden; kar raha hai*/
+            /* overflow: hidden; */
+        }
+ 
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+
+    <img src="img1.jpg">
+
+    <script>
+        let canvas = document.querySelector("canvas");
+        let img = document.querySelector("img");
+
+        // canvas puri screen pai chahia huma tho, canvas ki height & width => window ki height & width ka equal kar dii
+        canvas.width = window.innerWidth; // window => current window joo open hai woo define kar raha hai
+        canvas.height = window.innerHeight;
+
+        // we want a tool to draw on canvas
+        let tool = canvas.getContext("2d"); // getContent => return tool with with we want to use to draw, return '2d' tool for 3d we write 'webjl'
+        
+
+        // 
+        img.addEventListener("load", function(){
+            tool.drawImage(img, 0, 0); // tool.drawImage(img, x, y) => to draw img on canvas
+        });
+        
+    </script>
+</body>
+</html>

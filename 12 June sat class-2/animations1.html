@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body{
+            margin: 0;
+        }
+
+        div{
+            height: 10rem;
+            width: 10rem;
+            background-color: red;
+
+            animation: moveRight;
+            /* animation-duration => kitni dar tak animation chala gii */
+            animation-duration: 6s;
+            /* number kitni bar chala gii animation */
+            /* animation-iteration-count: infinite; to run infinte time this animation  */
+            animation-iteration-count: 2; 
+
+            /* joo final postion hai element(div) ki woo wahi raha jai */
+            animation-fill-mode: forwards;
+
+            /* mara page load hona ke baad itna second ka baad animation load hoo */
+            animation-delay: 4s;
+        }
+
+        /* animation katam hona ke baat apni intial postion pai pouch jata hai  */
+        /* moveRight => hamna khud banaya hai */
+        @keyframes moveRight {
+            
+            /* % => time ka respect mai hota hia */
+            0%{
+                /* intial state of keyframe */
+                /* jaha pai element hai vahi pai hi raha gaa at intial state */
+                /* translateX(x) => this tells move this much in x diretion */
+                transform: translateX(0); 
+            }
+
+            100%{
+                /* final state of keyframe */
+                transform: translateX(1000px);
+            }
+        }
+
+        </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>
