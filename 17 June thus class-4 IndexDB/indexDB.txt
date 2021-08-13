@@ -1,0 +1,54 @@
+IndexDB=>
+
+    - Data base inside your browser (NoSQL)
+    - we donot need to create IndexDB but it already exist in the browser. 
+
+    SQL => relational Database (Tables & unko relate karta hai using primary key & )
+
+
+    NoSQL => we donot need tables, don't need relation just need objects (JS ka object chahia).
+
+    - Instead of creating tables, create a collection of objects with SIMILAR KIND OF DATA
+
+        - repersent students data & there is no format in which data must be stored
+        - these object are typing to store similar kind of data 
+
+        (You can create multiple collections, we cannot create relations) 
+        these are trying defining category as STUDENTS TABLES
+        collection = [
+            {Name: Aniruth, Roll Number: 1, Collage: DU},
+            {Name: Ram, Collage: DU, Address: Delhi }
+            {}
+            {} (empty object daldia par yaa bhi valid hai, koi hard & fast rule nahi hai ki koi value honi chahia iss object mai)
+            {}
+            {Name: charan}
+            {}
+        ]
+        - A single object is trying to repersent one student information.
+        - A single NoSQL DB can contain mutiple objects(collections) of data & in IndexDB we call these collections objectStore. 
+        - If you want to create an "objectstore" you can only do that in 'upgradeneeded' event function.
+        - objectStore is called collections.  
+
+
+    Students Table (You create multiple tables, tables can be related)
+
+    (all rows data is of similar type)
+    Name        Collage Name     Address
+    Anirudh      GTBIT             Delhi   (single row single data koo repersent kar kahi hai)
+    Ram            DU              Delhi
+
+
+
+    Q LocalStorage sort of Database joki browser store karta hai and IndexDB also does the same ? So What is the difference ?
+
+    LocalStorage => 
+
+    - LocalStorage KEY VALUE PAIR use karte the (objects were not stored)
+    - It is used to store only strings.( hum JSON.stringfy karta tha then data store kar pata tha in LocalStorage).
+    - Directly object store => any kind of data store kr sakta hai. 
+    - LocalStorage max 5mb data can be stored.
+
+    IndexDB => 
+
+    - In IndexDB, we donot have KEY VALUE PAIR, we Directly store object in => any kind of data store kar sarkta hai.
+    - IndexedDB has no such limit (2gb-3gb) In a sense secondary storage (they are persistant). Data is not stored in RAM because RAM is volatile.

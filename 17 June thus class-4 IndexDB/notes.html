@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing:border-box;
+        }
+
+        body{
+            margin: 0;
+        }
+
+        select{
+            height: 2rem;
+            width: 7rem;
+
+            display: block;
+            margin: auto;
+        }
+
+        #title{
+            height: 2rem;
+            width: 15rem;
+            display: block;
+            margin: auto;
+        }
+
+        #content{
+            height:15rem;
+            width: 25rem;
+            display: block;
+            margin: auto;
+        }
+
+        button{
+            display: block;
+            margin: auto;
+        }
+
+        </style>
+</head>
+<body>
+    <!-- Notes app => general notes, placements notes, collage notes -->
+
+    <!-- ON UI => DropDown, 2 input box ( 1 for title of the notes & 2nd box for content), submit button -->
+
+    <!-- Get dow ref in script , add an event listener on submit button,when clicked get title and content and category from drop id anything is missing give an error to user else save in indexedDB -->
+
+    <select>
+        <option value="choose">--choose--</option>
+        <option value="generalNotes">generalNotes</option>
+        <option value="placementNotes">placementNotes</option>
+        <option value="collageNotes">collageNotes</option>
+    </select>
+    <br>
+
+    <input id="title" placeholder="Title">
+    <br>
+
+    <input id="content" >
+    <br>
+
+    <button id="Submit" >Submit</button>
+    <br>
+    <hr>
+
+    <button id="view-generalNotes">View General Notes</button> <br>
+    <button id="view-collageNotes">View Collage Notes</button><br>
+    <button id="view-placementNotes">View Placement Notes</button><br>
+
+    <ul></ul>
+
+    <script>
+        let db;
+
+        let ul = document.querySelector("ul");
+        let title = document.querySelector("#title");
+        let content = document.querySelector("#content");
+        let submitBtn = document.querySelector("#Submit");
+        let select = document.querySelector("select");
+
+        let option = document.querySelectorAll("choose");
+
+        let viewGeneralNotesBtn = document.querySelector("#view-generalNotes");
+        let viewCollageNotesBtn = document.querySelector("#view-collageNotes");
+        let viewPlacementNotesBtn = document.querySelector("#view-placementNotes");
+
+
+        viewGeneralNotesBtn.addEventListener("click", function(){
+            viewNotes("generalNotes");
+        });
+
+        viewGeneralNotesBtn.addEventListener("click", function(){
+            viewNotes("generalNotes");
+            
+        });
+       
+        viewGeneralNotesBtn.addEventListener("click", function(){
+            viewNotes("generalNotes");
+
+        });
+        
+
+        submitBtn.addEventListener("click", function(){
+            if( option == "choose") { 
+                alert("Please select the option");
+             return;
+            }
+            else if( content.value ="" || title.value == "" || option == "choose"){
+                alert("Please enter title and content");
+                return;
+            }else{
+                // console.log(select.value);
+                let collectionName = select.value; // drop down selected value
+                let obj = {};
+
+                if(collectionName == "placementNotes"){
+                    obj.pId = Date.now(); // to get id, change every milisecond
+                }
+                if(collectionName == "generalNotes"){
+                    obj.gId = Date.now(); 
+                }
+                if(collectionName == "collageNotes"){
+                    obj.cId = Date.now(); 
+                }
+
+                obj.title = title.value;
+                obj.content = content.value;
+
+                addNotes(collectionName, obj);
+            // viewNotes(collectionName);
+            }
+        });
+
+        // title.addEventListener("change", function(){
+        //     console.log(title.innerText);
+        // });
+        
+        // content.addEventListener("change", function(){
+        //     console.log(content.innerText);
+        // });
+
+
+        // jabb bi huma IndexDB database create karna yaa open karna kaa lia => IndexDB name ka object hai, usko bolta hoo .open("Name-of-DB") with databse name & version of database
+        let req = indexedDB.open("NotesDB", 1);
+        // indexedDB.open("Name-of-DB", version-of-db);
+
+        req.addEventListener("success", function(){
+            db = req.result; // joo bhi database hai uska access daata hai ( access to NotesDB)
+            // alert("db was open successfully");
+
+            // addNotes("placementNotes");
+        });
+
+        // upgrade event occur in 2 cases
+        // case 1: when we create a new db
+        // case 2: when you try to open a database which already existed with a incremented version 
+        req.addEventListener("upgradeneeded", function(){
+            db = req.result;
+            // I can create an object store
+            accessToNotesDB.createObjectStore("placementNotes", {keyPath: "pId"}); // creating object in the IndexDB named "NotesDB"
+
+            accessToNotesDB.createObjectStore("generalNotes", {keyPath: "gId"});  // creating object in the IndexDB named "NotesDB"
+
+            accessToNotesDB.createObjectStore("collageNotes", {keyPath: "cId"});
+            
+            // keyPath => works as an ID (ID => to uniqly identify each object of collection)
+
+
+            // alert("db was updated/created successfully");
+        });
+
+        req.addEventListener("error", function(){
+            // alert("Error in creation/opening");
+        });
+
+        // jab version update kar dia fir purana version koo access karna hi kosih kara gai tho error aya gaa
+
+
+        function addNotes(collectionName, obj){
+            // if we don't have access of the db then return
+            if(!db)  
+                return;
+
+            // let obj = {
+            //     pId: 123455, title: "abc", content: "xyz"
+            // }
+            // transaction is a process of 
+            let tx = db.transaction(collectionName, "readwrite"); // iss case mai data koo add karna chata hai tho humna readwrite likha
+
+            let reqObjectStore = tx.objectStore(collectionName); // get access of db in which we want to store data 
+
+            reqObjectStore.add(obj); // adding in data base
+        }
+
+        // collection ka sara 
+        function viewNotes(collectionName){
+            if(!db)  
+                return;
+
+            let tx = db.transaction(collectionName, "readonly");
+
+            let reqObjectStore = tx.objectStore(collectionName); 
+
+            // reqObjectStore => iss object store pai ik cursor kholo raha hai
+            // cursor is a pointer, & open hota hi cursor tho first object koo point kara gaa 
+            let cursorReq = reqObjectStore.openCursor();
+
+            // jab yaa request success hogi 
+            cursorReq.addEventListener("sucess", function(){
+                let cursor = cursorReq.result; // cursor first object koo point kar raha hoga uss collection mai
+
+                let oldList = ul.querySlectorAll("li");
+                for( let i = 0 ; i < oldList.length ; i++ ){
+                    oldList[i].remove();
+                }
+
+                // if cursor exist then print the ke
+                if(cursor){ 
+                    let li = document.createElement("li");
+                    li.innerHTML = `<div>${cursor.value.title}</div><div>${cursor.value.content}</div><br>`
+                    // console.log(cursor.value); // print current object koo point kar raha hoo gaa woo
+
+                    ul.append(li);
+                    cursor.continue();
+                }
+            });
+        }
+
+        //--------------------------
+        // Task is => create 3 button 
+        // view placement notes
+        // view collage notes
+        // view placement notes
+
+
+    </script>
+</body>
+</html>
